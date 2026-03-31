@@ -113,10 +113,10 @@ import { navLinks } from '../data/navigation';
     position: fixed;
     top: 1.5rem;
     right: 1.5rem;
-    z-index: 200;
+    z-index: 300;
     background: none;
     border: none;
-    cursor: crosshair;
+    cursor: pointer;
     padding: 0.25rem;
     flex-direction: column;
     gap: 5px;
@@ -127,7 +127,20 @@ import { navLinks } from '../data/navigation';
     width: 22px;
     height: 1px;
     background: rgba(246, 245, 241, 0.9);
-    transition: background 0.2s;
+    transition: transform 0.25s, opacity 0.25s, background 0.2s;
+    transform-origin: center;
+  }
+
+  /* ✕ state when menu is open */
+  .mobile-hamburger[aria-expanded='true'] span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .mobile-hamburger[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .mobile-hamburger[aria-expanded='true'] span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
   }
 
   @media (max-width: 640px) {
