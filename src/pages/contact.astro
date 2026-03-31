@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout
+  title="Contact — Jimmy Qiu"
+  description="Get in touch about color science, LUT design, or collaboration."
+  activeNav="contact"
+>
+  <PageHero title="Contact" subtitle="Get in Touch" />
+
+  <section class="container-content contact-layout">
+
+    <!-- Left: info -->
+    <div class="contact-info">
+      <div class="info-block">
+        <p class="label" style="margin-bottom: 0.75rem;">Direct</p>
+        <a href="mailto:jimmyqiufilm@gmail.com" class="email-link">
+          jimmyqiufilm@gmail.com
+        </a>
+      </div>
+
+<div class="info-block">
+        <p class="label" style="margin-bottom: 0.75rem;">Response</p>
+        <p class="info-text">Usually within 48 hours.</p>
+      </div>
+    </div>
+
+    <!-- Right: form -->
+    <form
+      action="https://formspree.io/f/YOUR_FORM_ID"
+      method="POST"
+      class="contact-form"
+    >
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required placeholder="Your name" />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="your@email.com" />
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required rows="5" placeholder="Tell me about your project…"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+  }
+
+  @media (min-width: 768px) {
+    .contact-layout { grid-template-columns: 1fr 1fr; gap: 5rem; }
+  }
+
+  /* ── Info ── */
+  .contact-info { display: flex; flex-direction: column; gap: 2.5rem; }
+
+  .email-link {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+    transition: color 0.18s var(--ease-out);
+  }
+  .email-link:hover { color: var(--color-accent); }
+
+  .inquiry-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .inquiry-list li {
+    display: flex;
+    gap: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--color-ink-2);
+    line-height: 1.5;
+  }
+
+  .inquiry-dash {
+    color: var(--color-rule);
+    flex-shrink: 0;
+  }
+
+  .info-text {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--color-ink-2);
+  }
+
+  /* ── Form ── */
+  .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .field { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  label {
+    font-family: var(--font-sans);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+  }
+
+  input, textarea {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-ink);
+    background: var(--color-card);
+    border: 1px solid var(--color-rule);
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.18s var(--ease-out);
+    cursor: text;
+    width: 100%;
+    resize: none;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: var(--color-ink-2);
+    opacity: 0.45;
+  }
+
+  input:focus, textarea:focus {
+    border-color: var(--color-ink);
+  }
+
+  .submit-btn {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-surface);
+    background: var(--color-ink);
+    border: 1px solid var(--color-ink);
+    padding: 0.9rem 1.5rem;
+    cursor: crosshair;
+    transition: all 0.18s var(--ease-out);
+    align-self: flex-start;
+    min-width: 180px;
+  }
+
+  .submit-btn:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+</style>

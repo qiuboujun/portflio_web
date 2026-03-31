@@ -1,0 +1,107 @@
+---
+interface Props {
+  side?: 'left' | 'right';
+  rotate?: number;
+  opacity?: number;
+}
+
+const { side = 'right', rotate = 9, opacity = 0.28 } = Astro.props;
+---
+
+<div class:list={['glasses-decor', `glasses-decor--${side}`]}
+     style={`--rotate: ${rotate}deg; --opacity: ${opacity};`}
+     aria-hidden="true">
+  <svg class="glasses-svg" viewBox="0 0 440 190" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Dark tinted lens base -->
+      <radialGradient id="gls-dark" cx="48%" cy="42%" r="64%">
+        <stop offset="0%"   stop-color="#0e1a2e" stop-opacity="0.82"/>
+        <stop offset="100%" stop-color="#020608" stop-opacity="0.93"/>
+      </radialGradient>
+
+      <!-- Spectral iridescence sweep (unified across both lenses) -->
+      <linearGradient id="gls-spectral"
+        x1="0" y1="0" x2="440" y2="190"
+        gradientUnits="userSpaceOnUse">
+        <stop offset="0%"   stop-color="#4a6fa8" stop-opacity="0.42"/>
+        <stop offset="18%"  stop-color="#3a9e82" stop-opacity="0.30"/>
+        <stop offset="38%"  stop-color="#c8a835" stop-opacity="0.32"/>
+        <stop offset="60%"  stop-color="#c05020" stop-opacity="0.28"/>
+        <stop offset="80%"  stop-color="#9040b8" stop-opacity="0.24"/>
+        <stop offset="100%" stop-color="#4a6fa8" stop-opacity="0.38"/>
+      </linearGradient>
+
+      <!-- Gloss highlight (objectBoundingBox → relative to each lens) -->
+      <radialGradient id="gls-gloss" cx="33%" cy="25%" r="52%"
+        gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="white" stop-opacity="0.48"/>
+        <stop offset="52%"  stop-color="white" stop-opacity="0.05"/>
+        <stop offset="100%" stop-color="white" stop-opacity="0"/>
+      </radialGradient>
+
+      <!-- Secondary soft reflection (lower-right of lens) -->
+      <radialGradient id="gls-reflect" cx="72%" cy="75%" r="42%"
+        gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="#a8c8ff" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#a8c8ff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- Left temple arm -->
+    <line x1="33" y1="58" x2="0" y2="50"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- ── Left lens ── -->
+    <ellipse cx="114" cy="95" rx="81" ry="70" fill="url(#gls-dark)"/>
+    <ellipse cx="114" cy="95" rx="81" ry="70" fill="url(#gls-spectral)"/>
+    <ellipse cx="114" cy="95" rx="81" ry="70" fill="url(#gls-gloss)"/>
+    <ellipse cx="114" cy="95" rx="81" ry="70" fill="url(#gls-reflect)"/>
+    <ellipse cx="114" cy="95" rx="81" ry="70"
+             fill="none" stroke="currentColor" stroke-width="2.5"/>
+
+    <!-- Bridge -->
+    <path d="M 195 84 C 208 68 232 68 245 84"
+          fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round"/>
+
+    <!-- ── Right lens ── -->
+    <ellipse cx="326" cy="95" rx="81" ry="70" fill="url(#gls-dark)"/>
+    <ellipse cx="326" cy="95" rx="81" ry="70" fill="url(#gls-spectral)"/>
+    <ellipse cx="326" cy="95" rx="81" ry="70" fill="url(#gls-gloss)"/>
+    <ellipse cx="326" cy="95" rx="81" ry="70" fill="url(#gls-reflect)"/>
+    <ellipse cx="326" cy="95" rx="81" ry="70"
+             fill="none" stroke="currentColor" stroke-width="2.5"/>
+
+    <!-- Right temple arm -->
+    <line x1="407" y1="58" x2="440" y2="50"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<style>
+  .glasses-decor {
+    position: absolute;
+    bottom: 18%;
+    pointer-events: none;
+    user-select: none;
+    opacity: var(--opacity);
+    transform: rotate(var(--rotate));
+    width: clamp(220px, 28vw, 380px);
+    color: var(--color-rule);
+  }
+
+  .glasses-decor--right {
+    right: -2vw;
+  }
+
+  .glasses-decor--left {
+    left: -2vw;
+    transform: rotate(calc(-1 * var(--rotate)));
+  }
+
+  .glasses-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

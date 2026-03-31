@@ -1,0 +1,41 @@
+---
+import ProjectCard from './ProjectCard.astro';
+
+interface Project {
+  slug: string;
+  data: {
+    title: string;
+    subtitle: string;
+    category: string;
+    categoryLabel: string;
+    year: number;
+    coverGradient: string;
+    coverImage?: string;
+    featured: boolean;
+  };
+}
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+  {projects.map((project) => (
+    <div data-category={project.data.category} class="project-item">
+      <ProjectCard
+        slug={project.id}
+        title={project.data.title}
+        subtitle={project.data.subtitle}
+        category={project.data.category}
+        categoryLabel={project.data.categoryLabel}
+        year={project.data.year}
+        coverGradient={project.data.coverGradient}
+        coverImage={project.data.coverImage}
+        featured={project.data.featured}
+      />
+    </div>
+  ))}
+</div>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import ProjectFilter from '../../components/ProjectFilter.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const sorted = allProjects.sort((a, b) => b.data.year - a.data.year);
+
+const categories = [
+  { value: 'commercials', label: 'Commercials' },
+  { value: 'narrative',   label: 'Narrative' },
+  { value: 'personal',    label: 'Personal' },
+  { value: 'photography', label: 'Photography' },
+];
+---
+
+<BaseLayout
+  title="Work — Jimmy Qiu"
+  description="Projects in LUT design, film emulation, color science, and grain rendering."
+>
+  <PageHero title="Work" subtitle="Portfolio" />
+
+  <section class="container-content" style="padding-top: 3rem; padding-bottom: 5rem;">
+    <ProjectFilter categories={categories} />
+    <ProjectGrid projects={sorted} />
+  </section>
+</BaseLayout>

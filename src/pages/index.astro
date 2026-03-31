@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSlideshow from '../components/HeroSlideshow.astro';
+---
+
+<BaseLayout
+  title="Jimmy Qiu — Color Scientist"
+  description="Color scientist specializing in spectral film simulation, LUT design, and HDR imaging pipelines."
+  hideHeader={true}
+  hideFooter={true}
+>
+  <HeroSlideshow fullScreen={true} />
+
+  <!-- Name — top left -->
+  <a href="/" class="float-name">
+    <span class="float-name__title">Jimmy Qiu</span>
+    <span class="float-name__role">Imaginer</span>
+  </a>
+
+  <!-- Navigation — top right, horizontal -->
+  <nav class="float-nav" aria-label="Main navigation">
+    <a href="/work?category=commercials">Commercials</a>
+    <a href="/work?category=narrative">Narrative</a>
+    <a href="/work?category=personal">Personal</a>
+    <a href="/work?category=photography">Photography</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </nav>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    overflow: hidden;
+  }
+
+  /* ── Shared overlay text style ── */
+  .float-nav a {
+    text-transform: uppercase;
+    transition: color 0.2s var(--ease-out);
+  }
+
+  .float-nav a {
+    font-family: var(--font-sans);
+  }
+
+  /* ── Name — top left ── */
+  .float-name {
+    position: fixed;
+    top: 2rem;
+    left: 2.5rem;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    gap: 0.2rem;
+  }
+  .float-name__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 2.1rem;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: rgba(255, 255, 255, 1);
+    transition: color 0.2s var(--ease-out);
+  }
+  .float-name:hover .float-name__title {
+    color: #fff;
+  }
+  .float-name__role {
+    font-family: var(--font-sans);
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(246, 245, 241, 0.45);
+    padding-left: 0.45rem;
+  }
+
+  /* ── Nav — top right, single row ── */
+  .float-nav {
+    position: fixed;
+    top: 2rem;
+    right: 2.5rem;
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .float-nav a {
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: rgba(246, 245, 241, 0.9);
+  }
+  .float-nav a:hover {
+    color: rgba(246, 245, 241, 1);
+  }
+
+  @media (max-width: 640px) {
+    .float-name {
+      top: 1.25rem;
+      left: 1.25rem;
+      font-size: 1.1rem;
+    }
+    .float-nav {
+      display: none;
+    }
+  }
+</style>

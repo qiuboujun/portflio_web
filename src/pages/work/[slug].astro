@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LightboxGallery from '../../components/LightboxGallery.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, subtitle, categoryLabel, year, tags, coverGradient, externalUrl } = project.data;
+---
+
+<BaseLayout title={`${title} — Jimmy Qiu`} description={subtitle}>
+  <!-- Project banner -->
+  <div class="project-banner">
+    <div class="container-content banner-content">
+      <p class="label" style="margin-bottom: 1rem;">{categoryLabel}</p>
+      <h1 class="banner-title">{title}</h1>
+      {subtitle !== categoryLabel && <p class="banner-subtitle">{subtitle}</p>}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="container-content project-layout">
+    <!-- Main body -->
+    <article class="project-body">
+      <div class="prose-site">
+        <Content />
+      </div>
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="project-sidebar">
+      <div class="sidebar-section">
+        <p class="label-muted">Category</p>
+        <p class="sidebar-value">{categoryLabel}</p>
+      </div>
+      <div class="sidebar-section">
+        <p class="label-muted">Year</p>
+        <p class="sidebar-value">{year}</p>
+      </div>
+      <div class="sidebar-section">
+        <p class="label-muted">Tags</p>
+        <div class="tag-list">
+          {tags.map(tag => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+      {externalUrl && (
+        <div class="sidebar-section">
+          <a href={externalUrl} target="_blank" rel="noopener noreferrer" class="btn-outline">
+            View Source →
+          </a>
+        </div>
+      )}
+    </aside>
+  </div>
+
+  <!-- Back link -->
+  <div class="container-content back-link-wrap">
+    <a href="/work" class="back-link">← All Work</a>
+  </div>
+
+  <LightboxGallery />
+</BaseLayout>
+
+<style>
+  /* ── Banner ── */
+  .project-banner {
+    position: relative;
+    display: block;
+    padding-bottom: 1.5rem;
+    overflow: hidden;
+    /* pull up behind header */
+    margin-top: -68px;
+    padding-top: calc(68px + 0.5rem);
+  }
+
+.banner-content { position: relative; z-index: 1; width: 100%; }
+
+  .banner-title {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: #000;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 0.75rem;
+  }
+
+  .banner-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-ink-2);
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+
+  /* ── Layout ── */
+  .project-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-top: 0.75rem;
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .project-layout {
+      grid-template-columns: 1fr 220px;
+      gap: 4rem;
+    }
+  }
+
+  /* ── Sidebar ── */
+  .project-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-left: 1px solid var(--color-rule);
+    padding-left: 2rem;
+  }
+
+  .sidebar-section { }
+
+  .label-muted {
+    font-family: var(--font-sans);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+    margin-bottom: 0.4rem;
+  }
+
+  .sidebar-value {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-ink);
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .tag {
+    font-family: var(--font-sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+    border: 1px solid var(--color-rule);
+    padding: 0.25rem 0.6rem;
+  }
+
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    border: 1px solid var(--color-ink);
+    padding: 0.5rem 1rem;
+    transition: all 0.18s var(--ease-out);
+  }
+  .btn-outline:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+
+  /* ── Back link ── */
+  .back-link-wrap {
+    padding-bottom: 3rem;
+    border-top: 1px solid var(--color-rule);
+    padding-top: 2rem;
+  }
+
+  .back-link {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+    transition: color 0.18s var(--ease-out);
+  }
+  .back-link:hover { color: var(--color-ink); }
+</style>

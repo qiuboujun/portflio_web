@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Nighthawk";
+  src: url("/fonts/Nighthawk.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kupertino";
+  src: url("/fonts/KupertinoPersonalUse.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@import "swiper/css";
+@import "swiper/css/effect-fade";
+@import "swiper/css/pagination";
+@import "glightbox/dist/css/glightbox.css";
+
+@theme {
+  /* Light palette */
+  --color-surface:   #f6f5f1;
+  --color-surface-2: #edecea;
+  --color-card:      #ffffff;
+  --color-ink:       #111110;
+  --color-ink-2:     #7a7773;
+  --color-accent:    #b84c14;
+  --color-rule:      #e3e0d8;
+
+  /* Dark (hero / image areas) */
+  --color-void:      #050810;
+
+  /* Type */
+  --font-display: "Nighthawk", "Forum", Georgia, serif;
+  --font-sans:    "Barlow", "Helvetica Neue", sans-serif;
+  --font-mono:    "JetBrains Mono", monospace;
+
+  /* Layout */
+  --max-width-content: 960px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: crosshair;
+    overflow-x: hidden;
+  }
+
+  a {
+    text-decoration: none;
+    transition: color 0.18s var(--ease-out);
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar { width: 2px; }
+  ::-webkit-scrollbar-track  { background: var(--color-surface); }
+  ::-webkit-scrollbar-thumb  { background: var(--color-rule); }
+}
+
+/* ─── Components ───────────────────────────────────────────────────── */
+@layer components {
+  .container-content {
+    max-width: var(--max-width-content);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  /* Tiny uppercase label */
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* Same but muted */
+  .label-muted {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+  }
+
+  /* Navigation link */
+  .nav-link {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+    transition: color 0.18s var(--ease-out);
+  }
+  .nav-link:hover  { color: var(--color-ink); }
+  .nav-link.active { color: var(--color-accent); }
+}
+
+/* ─── Hero swiper ──────────────────────────────────────────────────── */
+.hero-swiper { width: 100%; height: 100vh; }
+
+/* Pill-style pagination */
+.hero-swiper .swiper-pagination {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  bottom: 2rem !important;
+}
+.hero-swiper .swiper-pagination-bullet {
+  width: 6px;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(246, 245, 241, 0.35);
+  opacity: 1;
+  margin: 0 !important;
+  transition: all 0.35s var(--ease-out);
+}
+.hero-swiper .swiper-pagination-bullet-active {
+  width: 22px;
+  background: rgba(246, 245, 241, 0.85);
+}
+
+/* ─── Prose (project detail pages) ────────────────────────────────── */
+.prose-site {
+  color: var(--color-ink-2);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+.prose-site h2,
+.prose-site h3 {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--color-ink);
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  letter-spacing: -0.01em;
+}
+.prose-site h2 { font-size: 1.4rem; }
+.prose-site h3 { font-size: 1.1rem; }
+.prose-site p  { margin-bottom: 1.2em; }
+.prose-site img { width: 100%; height: auto; display: block; margin: 1.5em 0; }
+.prose-site table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 0.85rem; }
+.prose-site td { padding: 0.5rem 0; border-bottom: 1px solid var(--color-rule); color: var(--color-ink-2); }
+.prose-site td:first-child { color: var(--color-ink); font-weight: 500; width: 40%; }
+.prose-site thead { display: none; }
+.prose-site a  { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+.prose-site hr { border: none; border-top: 1px solid var(--color-rule); margin: 2em 0; }
+.prose-site code {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  background: var(--color-surface-2);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+.prose-site pre {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background: var(--color-ink);
+  color: var(--color-surface);
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  line-height: 1.6;
+}
+.prose-site pre code { background: none; padding: 0; }
+.prose-site ul,
+.prose-site ol { padding-left: 1.2em; margin-bottom: 1.2em; }
+.prose-site li { margin-bottom: 0.3em; }
+
+/* ─── GLightbox ────────────────────────────────────────────────────── */
+.glightbox-clean .gslide-description { background: var(--color-card); }
+.glightbox-clean .gdesc-inner .gslide-title {
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}

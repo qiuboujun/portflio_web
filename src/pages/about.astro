@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout
+  title="About — Jimmy Qiu"
+  description="Jimmy Qiu — imaginer working at the intersection of film, color, and technology."
+  activeNav="about"
+>
+  <PageHero title="About" subtitle="Imaginer" />
+
+  <section class="container-content about-layout">
+
+    <!-- Left column: portrait block + quick facts -->
+    <div class="about-left">
+      <dl class="facts">
+        {[
+          { label: 'Based',      value: 'Los Angeles / Remote' },
+          { label: 'Focus',      value: 'Color Science, Workflow' },
+        ].map(({ label, value }) => (
+          <div class="fact">
+            <dt class="fact-label">{label}</dt>
+            <dd class="fact-value">{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <!-- Right column: bio + experience + skills -->
+    <div class="about-right">
+
+      <div class="bio">
+        <p>
+          Jimmy Qiu is an imaginer working at the intersection of film, color, and technology.
+          He's drawn to the texture and feeling of analog photography — the grain, the light,
+          the way a frame breathes — and spends his time finding ways to bring those qualities
+          into modern digital workflows.
+        </p>
+        <p>
+          His work spans commercial color, narrative features, and personal projects building
+          tools that make images look and feel the way they're meant to. Whether grading a
+          frame or writing code, the goal is the same: make it feel right.
+        </p>
+        <p>
+          Recent personal projects include AGX Emulsion, an OpenFX film simulation plugin,
+          and HDR Stills, a native iOS app for color critical media review.
+        </p>
+      </div>
+
+
+    </div>
+
+  </section>
+</BaseLayout>
+
+<style>
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+  }
+
+  @media (min-width: 900px) {
+    .about-layout { grid-template-columns: 260px 1fr; gap: 5rem; }
+  }
+
+  /* ── Portrait ── */
+  .portrait-block {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+  }
+
+  .portrait-gradient { position: absolute; inset: 0; }
+
+  .portrait-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, transparent 25%, rgba(5,8,16,0.65) 100%);
+  }
+
+  .portrait-initials {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 7rem;
+    font-weight: 300;
+    color: rgba(246,245,241,0.08);
+    user-select: none;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── Facts ── */
+  .facts { display: flex; flex-direction: column; gap: 1.1rem; }
+
+  .fact-label {
+    font-family: var(--font-sans);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+    margin-bottom: 0.2rem;
+  }
+
+  .fact-value {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--color-ink);
+  }
+
+  /* ── Bio ── */
+  .bio {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .bio p {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--color-ink-2);
+  }
+
+  /* ── Section blocks ── */
+  .section-block {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  /* ── Experience ── */
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .exp-item {}
+
+  .exp-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .exp-title {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .exp-period {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--color-ink-2);
+    white-space: nowrap;
+  }
+
+  .exp-company {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .exp-desc {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--color-ink-2);
+  }
+
+  /* ── Skills ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 2rem;
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--color-ink-2);
+  }
+
+  .skill-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    flex-shrink: 0;
+  }
+</style>

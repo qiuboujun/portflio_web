@@ -1,0 +1,19 @@
+---
+interface Props {
+  selector?: string;
+}
+
+const { selector = '.glightbox' } = Astro.props;
+---
+
+<script define:vars={{ selector }}>
+  async function initLightbox() {
+    const links = document.querySelectorAll(selector);
+    if (!links.length) return;
+
+    const { default: GLightbox } = await import('glightbox');
+    GLightbox({ selector, touchNavigation: true, loop: true });
+  }
+
+  document.addEventListener('astro:page-load', initLightbox);
+</script>

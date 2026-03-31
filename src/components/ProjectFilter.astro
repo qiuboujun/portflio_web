@@ -1,0 +1,86 @@
+---
+interface Category {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  categories: Category[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div id="project-filter" role="group" aria-label="Filter projects by category">
+  <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+  {categories.map((cat) => (
+    <button class="filter-btn" data-filter={cat.value} aria-pressed="false">
+      {cat.label}
+    </button>
+  ))}
+</div>
+
+<style>
+  #project-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 3rem;
+  }
+
+  .filter-btn {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+    background: none;
+    border: 1px solid var(--color-rule);
+    padding: 0.35rem 0.85rem;
+    cursor: crosshair;
+    transition: all 0.18s var(--ease-out);
+  }
+
+  .filter-btn:hover {
+    border-color: var(--color-ink-2);
+    color: var(--color-ink);
+  }
+
+  .filter-btn.active {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-surface);
+  }
+</style>
+
+<script>
+  function initFilter() {
+    const container = document.getElementById('project-filter');
+    if (!container) return;
+
+    const buttons = container.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const items   = document.querySelectorAll<HTMLElement>('.project-item');
+
+    const activeCategory = new URLSearchParams(window.location.search).get('category') || 'all';
+
+    function setFilter(cat: string) {
+      buttons.forEach(btn => {
+        const active = btn.dataset.filter === cat;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', String(active));
+      });
+      items.forEach(item => {
+        item.style.display = (cat === 'all' || item.dataset.category === cat) ? '' : 'none';
+      });
+      const url = new URL(window.location.href);
+      cat === 'all' ? url.searchParams.delete('category') : url.searchParams.set('category', cat);
+      window.history.replaceState({}, '', url.toString());
+    }
+
+    setFilter(activeCategory);
+    buttons.forEach(btn => btn.addEventListener('click', () => setFilter(btn.dataset.filter ?? 'all')));
+  }
+
+  document.addEventListener('astro:page-load', initFilter);
+</script>
