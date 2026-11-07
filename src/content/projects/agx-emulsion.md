@@ -21,7 +21,7 @@ Dyevat is a CUDA-accelerated OpenFX plugin for DaVinci Resolve and other OFX hos
 
 The plugin breaks the look into separate stages so the user can tune the result without collapsing everything into one transform:
 
-**Input & Capture** accepts ACES2065-1 linear, ARRI LogC3, ARRI LogC4, or sRGB input, then applies exposure, scene white balance, and optional optical filters before the film response.
+**Input & Capture** accepts ACES2065-1 linear, ARRI LogC3, or ARRI LogC4 input, then applies exposure, scene white balance, and optional optical filters before the film response.
 
 **Film & Print Response** simulates selectable negative and print stocks, optional print stage enable/disable, preserve viewing illuminant behavior, color timing, DIR couplers, flashing, bleach bypass, and D-min normalization.
 
